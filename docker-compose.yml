@@ -5,6 +5,7 @@ services:
     image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
     volumes:
       - namenode:/hadoop/dfs/name
+      - ../hadoop_data:/ted_test_data
     environment:
       - CLUSTER_NAME=test
     env_file:
@@ -30,6 +31,8 @@ services:
       SERVICE_PRECONDITION: "hive-metastore:9083"
     ports:
       - "10000:10000"
+    volumes:
+      - ../hadoop_data:/ted_test_data
   hive-metastore:
     image: bde2020/hive:2.3.2-postgresql-metastore
     env_file:
@@ -41,10 +44,18 @@ services:
       - "9083:9083"
   hive-metastore-postgresql:
     image: bde2020/hive-metastore-postgresql:2.3.0
-  presto-coordinator:
-    image: shawnzhu/prestodb:0.181
+  hbase-dev:
+    image: harisekhon/hbase-dev:${VERSION:-latest}
     ports:
-      - "8080:8080"
+      - 2181:2181
+      - 8080:8080
+      - 8085:8085
+      - 9090:9090
+      - 9095:9095
+      - 16000:16000
+      - 16010:16010
+      - 16201:16201
+      - 16301:16301
 
 volumes:
   namenode:
