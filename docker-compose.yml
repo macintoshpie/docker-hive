@@ -5,7 +5,7 @@ services:
     image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
     volumes:
       - namenode:/hadoop/dfs/name
-      - ../hadoop_data:/ted_test_data
+      - ../MPCS_data:/MPCS_data
     environment:
       - CLUSTER_NAME=test
     env_file:
@@ -32,7 +32,7 @@ services:
     ports:
       - "10000:10000"
     volumes:
-      - ../hadoop_data:/ted_test_data
+      - ../MPCS_data:/MPCS_data
   hive-metastore:
     image: bde2020/hive:2.3.2-postgresql-metastore
     env_file:
